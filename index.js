@@ -4,7 +4,7 @@ const multer = require('multer');
 const cors = require('cors');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 9877;
 
 app.use(cors());
 app.use(express.json());
@@ -29,7 +29,7 @@ app.post('/decompose-image', upload.single('image'), async (req, res) => {
     if (!req.file) {
         return res.status(400).send('Please upload an image.');
     }
-    const prompt = "Give me summarized instructions to recycle or reuse this? (Give ans that are applicable on an individual scale. Also Don't give instruction's on living things or potentialy dangeours or illegal objects.)";
+    const prompt = "Give me summarized instructions to recycle or reuse this? (Give ans that are applicable on an individual scale. Also Don't give instruction's on living things or potentialy dangeours or illegal objects.). Give me output formatted as such it can directly be rendered as html. And one more thing don't use <html> tab in starting and end.";
     const imagePart = bufferToGenerativePart(req.file.buffer, req.file.mimetype);
 
     try {
